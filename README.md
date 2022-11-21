@@ -1,10 +1,9 @@
 # TkRtsp
 
-### Release 2022/11/21
+### TkRtsp v0.1 (Release 2022/11/21)
 ### Distrubuter : GH, Developer : GH
 
 ### Function Description
-
 ### Python 3.9 
 
 ### Pip list
