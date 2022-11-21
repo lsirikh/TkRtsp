@@ -11,6 +11,7 @@ import time
 class MainWindow():
     def __init__(self, window):
         self.set_properties(window)
+        self.window.protocol("WM_DELETE_WINDOW", self.on_exit)
         
     def set_properties(self, window):
         try:
@@ -51,6 +52,8 @@ class MainWindow():
         
     def stop_rtsp(self):
         self.isRun = False
+        if self.rtspThread.is_alive():
+            self.rtspThread.join(3)
 
     def set_rtsp_frame(self):
         try:
@@ -64,26 +67,32 @@ class MainWindow():
         except Exception as e:
             print("Raised Exception in set_properties : ", e)
     
-    
+    def on_exit(self):
+        print("Exit program")
+        if self.isRun:
+            self.stop_rtsp()
+        self.window.destroy()
     
     def update_image(self):    
         prev_time = 0
         FPS = 5
         while self.isRun:
-            ret, frame = self.cap.read()
-            frame = cv2.resize(frame, (640, 480))
-            current_time = time.time() - prev_time
+            try:
+                ret, frame = self.cap.read()
+                frame = cv2.resize(frame, (640, 480))
+                current_time = time.time() - prev_time
 
-            if (ret is True) and (current_time > 1./ FPS) :
-                prev_time = time.time()
-                # Get the latest frame and convert image format
-                self.OGimage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) # to RGB
-                self.OGimage = Image.fromarray(self.OGimage) # to PIL format
-                self.image = ImageTk.PhotoImage(self.OGimage) # to ImageTk format
-                # Update image
-                self.label.config(image=self.image)
-                self.label.image = self.image
-
+                if (ret is True) and (current_time > 1./ FPS) :
+                    prev_time = time.time()
+                    # Get the latest frame and convert image format
+                    self.OGimage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) # to RGB
+                    self.OGimage = Image.fromarray(self.OGimage) # to PIL format
+                    self.image = ImageTk.PhotoImage(self.OGimage) # to ImageTk format
+                    # Update image
+                    self.label.config(image=self.image)
+                    self.label.image = self.image
+            except Exception as e:
+                print("Raised Exception in update_image : ", e)
 
 if __name__ == "__main__":
     root = tk.Tk()
