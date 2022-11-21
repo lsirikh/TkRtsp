@@ -18,8 +18,10 @@ class MainWindow():
         
             self.interval = 20 # Interval in ms to get the latest frame
             # Create canvas for image
-            self.canvas = tk.Canvas(self.window, width=600, height=400)
-            self.canvas.grid(row=0, column=0)
+            #self.canvas = tk.Canvas(self.window, width=600, height=400)
+            #self.canvas.grid(row=0, column=0)
+            self.label = tk.Label(self.window)
+            self.label.grid(row=0, column=0, columnspan=2)
             self.runButton = tk.Button(self.window, 
                                 overrelief="solid", 
                                 text="Execute",
@@ -104,7 +106,10 @@ class MainWindow():
                 #self.image = self.OGimage.resize((600, 400))
                 self.image = ImageTk.PhotoImage(self.OGimage) # to ImageTk format
                 # Update image
-                self.canvas.create_image(0, 0, anchor=tk.NW, image=self.image)
+                #self.canvas.create_image(0, 0, anchor=tk.NW, image=self.image)
+                self.label.config(image=self.image)
+                self.label.image = self.image
+                #self.label(0, 0)
                 # Repeat every 'interval' ms
                 #self.window.after(self.interval, self.update_image)
     
@@ -131,7 +136,8 @@ if __name__ == "__main__":
     #p1.start()
     root = tk.Tk()
     window = MainWindow(root)
-    url = "rtsp://admin:Abc.12345@192.168.1.64:554/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif"
+    #url = "rtsp://admin:Abc.12345@192.168.1.64:554/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif"
     #url = "rtsp://admin:Abc.12345@192.168.1.65:554/Streaming/channels/101"
+    url = "rtsp://admin:sensorway1@192.168.202.119:554/Streaming/channels/101"
     window.set_rtsp_url(url) 
     root.mainloop()
