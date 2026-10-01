@@ -1,45 +1,14 @@
-# TkRtsp
+# TkRTSP Viewer
 
-### TkRtsp v0.1 (Release 2022/11/21)
-### Distrubuter : GH, Developer : GH
+OpenCV로 RTSP 영상을 읽고 Tkinter 창에 표시하는 Python 예제입니다. 영상 수신 스레드와 화면 갱신을 나누고 시작·정지 및 종료 처리를 구현합니다.
 
-### Function Description
-### Python 3.9 
+## 구성과 실행
 
-### Pip list
+핵심 구현은 [main.py](main.py)에 있습니다. 기존 개발 환경은 Python 3.9이며 OpenCV, Pillow와 Tkinter가 필요합니다.
 
-```
-attrs==22.1.0
-certifi==2022.9.24
-charset-normalizer==2.1.1
-idna==3.4
-isodate==0.6.1
-lxml==4.9.1
-numpy==1.23.4
-onvif-zeep==0.2.12
-opencv-python==4.6.0.66
-Pillow==9.3.0
-platformdirs==2.5.4
-pytz==2022.6
-requests==2.28.1
-requests-file==1.5.1
-requests-toolbelt==0.10.1
-six==1.16.0
-suds==1.1.2
-suds-py3==1.4.5.0
-tk==0.1.0
-urllib3==1.26.12
-zeep==4.2.0
+```bash
+python -m pip install -r requirements.txt
+python main.py
 ```
 
-* RTSP is running on closs-platform 
-   
-    - checked in Windows 10, Ubuntu 20.04, RPi 4, etc  
-    
-* Tkinter was implemented for Gui
-* Rtsp was used for Video Streaming 
-* Frame Rate is controllable
-  
-    
-This project is not completed.   
-It will be further developed if additional requests are made.
+먼저 코드의 RTSP 입력을 사용 가능한 카메라 주소로 설정해야 합니다. GUI를 표시할 수 있는 환경이 필요하며, `requirements.txt`는 당시 환경의 의존성 목록이므로 현재 Python과의 호환성을 확인하세요.
